@@ -26,7 +26,7 @@ import {
   getTicketStatusLabel,
   isTicketActive,
   canCancelTicket,
-} from '@bus-tickets/shared';
+} from '@/utils/formatting';
 
 // Mock ticket data
 const MOCK_TICKET: Ticket = {

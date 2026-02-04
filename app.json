@@ -99,7 +99,9 @@
       },
       "eas": {
         "projectId": "6a58be99-18da-49c6-9fd9-385011d5cbdc"
-      }
+      },
+      "apiUrl": "${EXPO_PUBLIC_API_URL}",
+      "instanceName": "${EXPO_PUBLIC_INSTANCE_NAME}"
     },
     "owner": "it-enterpr"
   }

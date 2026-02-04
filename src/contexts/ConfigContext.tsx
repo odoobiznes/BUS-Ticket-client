@@ -7,6 +7,17 @@ import React, { createContext, useContext, useState, useEffect, ReactNode } from
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import type { AppConfig, BackendConfig, OAuthProviderConfig, PaymentConfig } from '@/types';
+import {
+  DEFAULT_API_URL,
+  DEFAULT_INSTANCE_NAME,
+  API_VERSION,
+  API_TIMEOUT,
+  SUPPORTED_LANGUAGES,
+  DEFAULT_LANGUAGE,
+  SUPPORTED_CURRENCIES,
+  DEFAULT_CURRENCY,
+  THEME_COLORS,
+} from '@/config/environment';
 
 /**
  * Ensure URL uses HTTPS (required for web to avoid mixed content issues)
@@ -20,15 +31,15 @@ function ensureHttps(url: string | undefined): string {
   return url;
 }
 
-// Default IT Enterprise configuration
+// Default backend configuration - uses environment.ts values
 const DEFAULT_BACKEND: BackendConfig = {
   id: 'default',
-  name: 'BUS-Tickets Backend',
+  name: `${DEFAULT_INSTANCE_NAME} Backend`,
   type: 'odoo',
-  url: 'https://symcherabus.eu',
-  apiUrl: 'https://symcherabus.eu',
-  apiVersion: 'v1',
-  timeout: 30000,
+  url: DEFAULT_API_URL,
+  apiUrl: DEFAULT_API_URL,
+  apiVersion: API_VERSION,
+  timeout: API_TIMEOUT,
   isActive: true,
   features: {
     booking: true,
@@ -107,7 +118,7 @@ const DEFAULT_PAYMENT_PROVIDERS: PaymentConfig[] = [
 
 const DEFAULT_CONFIG: AppConfig = {
   instanceId: 'default',
-  instanceName: 'BUS-Tickets',
+  instanceName: DEFAULT_INSTANCE_NAME,
   backend: DEFAULT_BACKEND,
   authProviders: DEFAULT_OAUTH_PROVIDERS,
   emailConfig: {
@@ -118,26 +129,26 @@ const DEFAULT_CONFIG: AppConfig = {
     requireVerification: true,
   },
   paymentProviders: DEFAULT_PAYMENT_PROVIDERS,
-  defaultLanguage: 'uk',
-  supportedLanguages: ['uk', 'cs', 'en'],
-  defaultCurrency: 'UAH',
-  supportedCurrencies: ['UAH', 'CZK', 'EUR', 'USD'],
+  defaultLanguage: DEFAULT_LANGUAGE,
+  supportedLanguages: [...SUPPORTED_LANGUAGES],
+  defaultCurrency: DEFAULT_CURRENCY,
+  supportedCurrencies: [...SUPPORTED_CURRENCIES],
   localization: {
-    defaultLanguage: 'uk',
-    supportedLanguages: ['uk', 'cs', 'en'],
-    defaultCurrency: 'UAH',
-    supportedCurrencies: ['UAH', 'CZK', 'EUR', 'USD'],
+    defaultLanguage: DEFAULT_LANGUAGE,
+    supportedLanguages: [...SUPPORTED_LANGUAGES],
+    defaultCurrency: DEFAULT_CURRENCY,
+    supportedCurrencies: [...SUPPORTED_CURRENCIES],
   },
   theme: {
-    primaryColor: '#e94560',
-    secondaryColor: '#0f3460',
+    primaryColor: THEME_COLORS.primary,
+    secondaryColor: THEME_COLORS.secondary,
     mode: 'system',
   },
   legal: {
     companyName: 'IT Enterprise',
-    privacyPolicyUrl: 'https://symcherabus.eu/privacy',
-    termsOfServiceUrl: 'https://symcherabus.eu/terms',
-    termsUrl: 'https://symcherabus.eu/terms',
+    privacyPolicyUrl: `${DEFAULT_API_URL}/privacy`,
+    termsOfServiceUrl: `${DEFAULT_API_URL}/terms`,
+    termsUrl: `${DEFAULT_API_URL}/terms`,
     gdprCompliant: true,
     cookieConsentRequired: true,
   },

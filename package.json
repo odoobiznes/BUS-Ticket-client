@@ -1,5 +1,5 @@
 {
-  "name": "@bus-tickets/mobile",
+  "name": "bus-tickets",
   "version": "1.1.0",
   "private": true,
   "main": "expo-router/entry",

@@ -8,7 +8,7 @@
 import React, { createContext, useContext, useMemo, useEffect, ReactNode } from 'react';
 import { Platform } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import { BusTicketsApiClient, createApiClient } from '@bus-tickets/api-client';
+import { BusTicketsApiClient, createApiClient } from '@/services/ApiClient';
 import type { AuthTokens } from '@/types';
 import { useConfig } from './ConfigContext';
 

@@ -17,7 +17,7 @@ import { Ionicons } from '@expo/vector-icons';
 import { useTheme } from '@/contexts/ThemeContext';
 import { useAuth } from '@/contexts/AuthContext';
 import type { Ticket } from '@/types';
-import { formatPrice, formatTime, formatShortDate, getTicketStatusColor } from '@bus-tickets/shared';
+import { formatPrice, formatTime, formatShortDate, getTicketStatusColor } from '@/utils/formatting';
 
 // Mock tickets data
 const MOCK_TICKETS: Ticket[] = [
