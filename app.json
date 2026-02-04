@@ -88,20 +88,7 @@
     "plugins": [
       "expo-router",
       "expo-secure-store",
-      "expo-localization",
-      [
-        "expo-local-authentication",
-        {
-          "faceIDPermission": "Allow BUS-Tickets to use Face ID for authentication"
-        }
-      ],
-      [
-        "expo-notifications",
-        {
-          "icon": "./assets/notification-icon.png",
-          "color": "#e94560"
-        }
-      ]
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true
