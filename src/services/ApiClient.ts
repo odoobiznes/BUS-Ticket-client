@@ -81,15 +81,22 @@ export class BusTicketsApiClient {
   }
 
   // Auth endpoints
-  async login(email: string, password: string): Promise<AuthTokens> {
-    const response = await this.request<{ data: AuthTokens }>(
+  async login(params: {
+    provider: 'email' | 'google' | 'facebook' | 'apple' | 'phone';
+    email?: string;
+    password?: string;
+    idToken?: string;
+    phone?: string;
+    otp?: string;
+  }): Promise<{ user: User; tokens: AuthTokens }> {
+    const response = await this.request<{ data: { user: User; tokens: AuthTokens } }>(
       '/api/v1/auth/login',
       {
         method: 'POST',
-        body: JSON.stringify({ email, password }),
+        body: JSON.stringify(params),
       }
     );
-    this.tokens = response.data;
+    this.tokens = response.data.tokens;
     return response.data;
   }
 
@@ -98,15 +105,23 @@ export class BusTicketsApiClient {
     password: string;
     name: string;
     phone?: string;
-  }): Promise<User> {
-    const response = await this.request<{ data: User }>(
+  }): Promise<{ user: User; tokens: AuthTokens }> {
+    const response = await this.request<{ data: { user: User; tokens: AuthTokens } }>(
       '/api/v1/auth/register',
       {
         method: 'POST',
         body: JSON.stringify(data),
       }
     );
+    this.tokens = response.data.tokens;
     return response.data;
+  }
+
+  async requestOtp(email?: string, phone?: string): Promise<void> {
+    await this.request('/api/v1/auth/otp/request', {
+      method: 'POST',
+      body: JSON.stringify({ email, phone }),
+    });
   }
 
   async logout(): Promise<void> {

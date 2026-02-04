@@ -9,11 +9,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useApi } from './ApiContext';
 import type { User, AuthTokens } from '@/types';
 
-// Dynamic import for native-only modules
-let LocalAuthentication: typeof import('expo-local-authentication') | null = null;
-if (Platform.OS !== 'web') {
-  LocalAuthentication = require('expo-local-authentication');
-}
+// Biometric authentication is disabled in this build
+// expo-local-authentication requires native module compilation
 
 interface StoredAuth {
   accessToken: string;
@@ -271,26 +268,17 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [user, api]);
 
   const checkBiometric = async (): Promise<boolean> => {
-    // Biometric not available on web
-    if (Platform.OS === 'web' || !LocalAuthentication) {
-      return false;
-    }
-    const hasHardware = await LocalAuthentication.hasHardwareAsync();
-    const isEnrolled = await LocalAuthentication.isEnrolledAsync();
-    return hasHardware && isEnrolled;
+    // Biometric authentication is disabled in this build
+    // To enable: install expo-local-authentication and update this function
+    console.log('Biometric authentication disabled in this build');
+    return false;
   };
 
   const authenticateWithBiometric = async (): Promise<boolean> => {
-    // Biometric not available on web
-    if (Platform.OS === 'web' || !LocalAuthentication) {
-      return false;
-    }
-    const result = await LocalAuthentication.authenticateAsync({
-      promptMessage: 'Authenticate to access BUS-Tickets',
-      cancelLabel: 'Cancel',
-      disableDeviceFallback: false,
-    });
-    return result.success;
+    // Biometric authentication is disabled in this build
+    // To enable: install expo-local-authentication and update this function
+    console.log('Biometric authentication disabled in this build');
+    return false;
   };
 
   return (
